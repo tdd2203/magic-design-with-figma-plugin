@@ -1,0 +1,22 @@
+{
+  "name": "Magic Design with Figma",
+  "id": "1684062942044148160",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "documentAccess": "dynamic-page",
+  "editorType": [
+    "figma",
+    "figjam",
+    "slides",
+    "buzz"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "ws://localhost:3777"
+    ],
+    "reasoning": "Connects to the Claude Code bridge (a local MCP server started by the magic-design-with-figma Claude Code plugin) on this computer, so Claude can read and edit the open file."
+  }
+}

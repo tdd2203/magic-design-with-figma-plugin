@@ -1,0 +1,7 @@
+{
+  "name": "magic-design-with-figma",
+  "displayName": "Magic Design with Figma",
+  "version": "0.0.4",
+  "description": "Design in Figma with Claude: read the file, build and edit layers with the Plugin API, and check the result with screenshots, through a local bridge to the Magic Design with Figma Figma plugin.",
+  "keywords": ["figma", "design", "ui", "canvas"]
+}

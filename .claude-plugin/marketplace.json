@@ -1,0 +1,19 @@
+{
+  "name": "magic-design-with-figma",
+  "owner": {
+    "name": "tdd2203",
+    "url": "https://github.com/tdd2203"
+  },
+  "plugins": [
+    {
+      "name": "magic-design-with-figma",
+      "source": "./claude-plugin",
+      "description": "Design in Figma with Claude through a local bridge to the Magic Design with Figma Figma plugin. No API key needed: it runs inside your Claude Code session.",
+      "category": "design",
+      "keywords": [
+        "figma",
+        "design"
+      ]
+    }
+  ]
+}
