@@ -1,6 +1,7 @@
 ---
 name: design-audit
-description: Kiểm và phê bình thiết kế trên file Figma đang nối qua plugin magic-design-with-figma — chạy tool audit_design (contrast trên nền đã trộn, vùng bấm, nấc khoảng cách, màu và chữ chưa gắn biến/style, bảng màu light/dark), soi bằng screenshot phần máy không đo được, chấm heuristic và báo cáo bằng tiếng Việt. Dùng khi người dùng nói "audit", "kiểm thiết kế", "review" hay "critique màn này", "đo contrast", "có đạt WCAG/a11y không", "thiết kế ổn chưa", hoặc trước khi báo xong một màn hình dựng bằng các tool Figma của plugin này.
+description: 'Chấm một màn hình trong file Figma đang mở: máy đo lỗi (chữ khó đọc, nút quá nhỏ, khoảng cách lệch, màu và chữ chưa gắn biến, chữ bị cắt, nội dung giả), soi bằng ảnh chụp phần máy không đo, rồi nhận xét thứ bậc, bố cục và độ dễ dùng. Dùng khi người dùng nói "audit", "kiểm thiết kế", "review" hay "critique" một màn trong file Figma nối qua plugin Magic Design with Figma, hỏi "màn này ổn chưa", hoặc trước khi báo xong một màn vừa dựng. Kiểm riêng trợ năng theo WCAG thì dùng a11y-audit. Không dùng cho ảnh chụp hay link Figma không mở qua plugin.'
+argument-hint: "<tên frame, để trống thì dùng layer đang chọn>"
 ---
 
 # Kiểm và phê bình thiết kế trong Figma
@@ -28,7 +29,8 @@ còn nới ra thì phải có lý do viết thành chữ (xem *Kỷ luật báo 
 
 ## Khi nào dùng
 
-- Người dùng hỏi "kiểm", "audit", "review", "critique", "đo contrast", "đạt a11y chưa", "ổn chưa".
+- Người dùng hỏi "kiểm", "audit", "review", "critique", "ổn chưa" về một màn trong file Figma đang nối
+  qua plugin.
 - Vừa dựng hoặc sửa xong một màn hình, trước khi báo "xong".
 - Vừa đổi biến màu, thêm mode Dark, đổi thang chữ hay khoảng cách.
 - Nhận một bảng màu từ ngoài vào file: chạy scope `palette` trước khi dùng.
@@ -36,6 +38,15 @@ còn nới ra thì phải có lý do viết thành chữ (xem *Kỷ luật báo 
 **Không** dùng skill này để dựng màn mới: việc đó bắt đầu từ `design-workflow`. Khi sửa cần dựng lại
 cả một phần (bảng màu, thang chữ, bộ trạng thái của component), chuyển sang các skill thiết kế cùng
 plugin: `color-system`, `layout-type`, `components-states`.
+
+Việc gần giống nhưng thuộc skill khác:
+
+- Hỏi riêng về trợ năng, WCAG, người khiếm thị, bàn phím: `a11y-audit` (skill đó cũng chạy
+  `audit_design`, rồi soi thêm nhãn, tên nút, alt, thứ tự focus).
+- Kiểm cả hệ thiết kế của file, không phải một màn: `design-system-audit`.
+- Chỉ soát câu chữ: `ux-writing`.
+- Nhận xét ảnh chụp hay link Figma không mở qua plugin: không phải việc của skill này, vì không có
+  file để đo.
 
 ## Quy trình
 

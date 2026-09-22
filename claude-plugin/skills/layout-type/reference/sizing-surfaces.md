@@ -199,8 +199,10 @@ mẫu cho ba mức thay vì cố tạo mode.
 | 16:9 | Video, hero, ảnh bìa |
 | 4:5 · 3:4 | Ảnh dọc trên mobile, feed |
 
-- Sandbox **không có mạng**: `figma.createImageAsync(url)` sẽ lỗi. Ảnh chỉ là placeholder (khung
-  nền neutral, tên nói nội dung và tỉ lệ) hoặc dùng lại image fill có sẵn trong file của người dùng.
+- Sandbox **không có mạng**: `figma.createImageAsync(url)` sẽ lỗi. Ảnh thật đi qua tool `place_image`
+  (file trên máy hoặc URL): vẽ khung đúng tỉ lệ trước rồi truyền `node_id` để ảnh lấp khung, `scale_mode`
+  `FILL` để cắt vừa. Chưa có ảnh thì để placeholder (khung nền neutral, tên nói nội dung và tỉ lệ) hoặc
+  dùng lại image fill có sẵn trong file của người dùng.
 - Ảnh trong thẻ auto layout: `FILL` bề ngang + `lockAspectRatio()` để chiều cao đi theo tỉ lệ.
 - **Chữ đè lên ảnh** cần lớp phủ tối 40–60% hoặc dải gradient tối sau chữ; đừng tin "ảnh này chắc
   đủ tối". `audit_design` trả `chu-khong-do-duoc` (SKIP) cho trường hợp này — phải tự nhìn bằng

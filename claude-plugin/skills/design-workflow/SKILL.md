@@ -1,6 +1,7 @@
 ---
 name: design-workflow
-description: "Điểm vào cho mọi yêu cầu thiết kế hoặc thiết kế lại màn hình, luồng, app, landing page hay component ngay trên canvas Figma bằng các tool của plugin magic-design-with-figma (get_context, inspect_nodes, execute_figma_code, screenshot, audit_design). Dùng khi người dùng nhờ 'thiết kế / vẽ / dựng / làm lại ... trong Figma', 'design a screen, app or landing page in Figma', hoặc cần sắp page, đặt tên layer, vẽ đủ trạng thái màn hình, ghi chú bàn giao trên canvas; không dành cho tool use_figma của Figma MCP chính thức."
+description: 'Thiết kế hoặc làm lại một màn hình, luồng, app, landing page hay component ngay trên file Figma đang mở, qua plugin Magic Design with Figma. Đây là điểm bắt đầu cho mọi việc dựng giao diện: hiểu yêu cầu, đọc hệ thiết kế của file, dựng từng phần, chụp lại để kiểm, đo lỗi rồi báo cáo. Dùng khi người dùng nói "thiết kế / vẽ / dựng / làm lại … trong Figma" hoặc "design a screen, app or landing page in Figma". Không dành cho tool use_figma của Figma MCP chính thức.'
+argument-hint: "<màn hình hoặc luồng cần thiết kế>"
 ---
 
 # Quy trình thiết kế trong Figma
@@ -14,6 +15,11 @@ magic-design-with-figma. Kiến thức từng mảng nằm ở skill riêng, g�
 | Chữ, khoảng cách, lưới, kích thước, frame theo nền tảng, chuyển động | `layout-type` |
 | Component, variants, trạng thái nút và ô nhập, khung xương màn hình | `components-states` |
 | Chạy và đọc `audit_design`, phê bình thiết kế | `design-audit` |
+| Kiểm trợ năng theo WCAG, ghi chú trợ năng cho dev | `a11y-audit` |
+| Soát và sửa chữ trên cả màn | `ux-writing` |
+| Kiểm hệ thiết kế của cả file, viết tài liệu component | `design-system-audit` |
+| Viết spec bàn giao cho dev | `handoff-spec` |
+| Cho người dùng thật thử prototype, tổng hợp kết quả lên FigJam | `usability-test`, `research-board` |
 
 ## Tri thức, không phải luật
 
@@ -68,7 +74,8 @@ lệnh. "Làm lại cái này": `inspect_nodes` (depth 2–3) + `screenshot` b�
 **2. Đọc hệ thiết kế của file.** Chạy công thức `readDesignSystem` ([reference/recipes.md](reference/recipes.md) #1,
 dán được ngay): styles, collections và modes, variables, components. Component ở page khác: `await figma.loadAllPagesAsync()`
 rồi tìm trên `figma.root`. Có màn sẵn thì `inspect_nodes` một màn tiêu biểu để học khoảng cách, cỡ chữ,
-bo góc đang dùng; `lineHeight`, `letterSpacing`, `boundVariables` phải đọc bằng `execute_figma_code`.
+line height, bo góc đang dùng, cùng tên style và variable đang gắn (`textStyle`, `fillStyle`, `variables`,
+`fills[].variable`).
 - Có hệ: dùng lại, không tạo token trùng; thiếu phần nào thì bổ sung theo cách đặt tên của file.
   Component thư viện (main component `remote`): `clone()` một instance có sẵn, hoặc `importComponentByKeyAsync(key)`.
 - File trống: việc lớn thì dựng nền tối thiểu trước (biến màu theo vai trò, vài text style, spacing:
@@ -92,9 +99,11 @@ bảng, form…). Lỗi thì chỉ hỏng một bước, và người dùng Undo
 - Đặt tên layer ngay khi tạo. Trả về id; lần sau lấy lại bằng `getNodeByIdAsync`, không dò theo tên.
 - Font phải có đủ dấu tiếng Việt: dùng font file đang dùng, hoặc chọn từ `listAvailableFontsAsync()`
   rồi chụp thử chữ có dấu chồng.
-- Sandbox không có mạng, `figma.createImageAsync(url)` sẽ hỏng. Ảnh lấy từ file (chép mảng `fills` có
-  `type: 'IMAGE'` của layer sẵn có) hoặc vẽ khung giữ chỗ đúng tỉ lệ, tên nói rõ ảnh cần là gì
-  (`Image/Hero 16:9 · thợ đang đứng máy trong xưởng`).
+- Ảnh thật (logo, ảnh sản phẩm, ảnh chụp): vẽ khung đúng tỉ lệ, đặt tên theo nội dung ảnh, rồi gọi
+  `place_image` với file trên máy hoặc URL (PNG, JPEG, GIF, SVG) và `node_id` của khung. Chỉ dùng ảnh
+  người dùng đưa hoặc đồng ý; ảnh lấy trên mạng thì hỏi về bản quyền trước. Sandbox không có mạng nên
+  `figma.createImageAsync(url)` sẽ hỏng. Chưa có ảnh thì để khung giữ chỗ, tên nói rõ ảnh cần là gì
+  (`Image/Hero 16:9 · thợ đang đứng máy trong xưởng`), hoặc chép `fills` IMAGE của layer sẵn có.
 - Lỗi giữa chừng **không** tự hoàn tác phần đã tạo: tìm phần dở theo id, xoá phần do chính mình tạo
   rồi mới chạy lại. Quá 60 giây thì chia nhỏ. Kết quả quá 30.000 ký tự bị cắt: chỉ trả id, tên, số đếm.
 - Code chạy là JavaScript thuần (không có kiểu TypeScript). Mẫu một lần gọi:

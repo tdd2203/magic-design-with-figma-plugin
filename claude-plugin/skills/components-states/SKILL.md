@@ -1,6 +1,7 @@
 ---
 name: components-states
-description: Dựng component tái sử dụng và đủ trạng thái trực tiếp trên canvas Figma bằng các tool của plugin magic-design-with-figma (execute_figma_code, inspect_nodes, screenshot, audit_design) — main component, variant Property=Value, component property TEXT/BOOLEAN/INSTANCE_SWAP, trạng thái hover/pressed/focus/disabled/loading/error/success, trang Components có lưới tài liệu. Dùng khi người dùng muốn tạo, sửa hoặc kiểm button, input, select, checkbox, table row, nav, tabs, modal, drawer, toast, empty state, hoặc chọn khung màn hình (list + detail, dashboard, wizard, form, canvas) và viết câu chữ giao diện trong file Figma đang mở qua plugin này; dựng cả một màn hình hay một luồng thì bắt đầu từ skill design-workflow.
+description: 'Dựng component dùng lại được và đủ trạng thái (hover, pressed, focus, disabled, loading, lỗi) trong file Figma đang mở: variant, component property, trang Components có tài liệu. Dùng khi người dùng muốn tạo, sửa hoặc dọn button, ô nhập, select, checkbox, bảng, tab, điều hướng, modal, drawer, toast, trạng thái trống, hoặc chọn khung màn hình (danh sách + chi tiết, dashboard, wizard, form) trên file Figma nối qua plugin Magic Design with Figma. Dựng cả một màn thì bắt đầu từ design-workflow.'
+argument-hint: "<tên component, ví dụ: Button, Input, Modal>"
 ---
 
 # Component và trạng thái trong Figma
@@ -20,7 +21,8 @@ hoặc trang Cover).
   tag, table row, nav item, tab, modal, drawer, toast, banner, empty state.
 - Thêm hoặc sửa variant, component property, trạng thái; dọn một component set lộn xộn.
 - Chọn khung màn hình và quyết định pattern (nút nào đặc, form mấy cột, modal hay drawer…).
-- Viết câu chữ trên giao diện: nhãn nút, thông báo lỗi, trạng thái trống, ghi chú thời gian chờ.
+- Viết câu chữ cho component đang dựng: nhãn nút, thông báo lỗi, trạng thái trống, ghi chú thời
+  gian chờ. Soát và sửa chữ của cả một màn thì dùng skill `ux-writing`.
 
 Việc dựng bảng màu và biến màu thuộc skill `color-system`; thang chữ, spacing và kích thước thuộc
 `layout-type`; quy trình cả màn hình thuộc `design-workflow`; đọc kết quả `audit_design` và phê bình
@@ -117,7 +119,8 @@ Nút, ô nhập, select **nằm cùng hàng thì cùng chiều cao**. Icon 16px 
 ## Bẫy Plugin API hay gặp
 
 - `setProperties` cần **tên đầy đủ có hậu tố** cho TEXT/BOOLEAN/INSTANCE_SWAP (`Label#12:3`).
-  Đọc tên từ `componentPropertyDefinitions`, đừng đoán. VARIANT dùng tên trần (`State`).
+  Đọc tên từ `componentPropertyDefinitions` (`inspect_nodes` trên set trả sẵn), đừng đoán. VARIANT
+  dùng tên trần (`State`).
 - `componentPropertyReferences` đặt trên **layer bên trong từng variant**, không đặt trên set.
 - INSTANCE_SWAP nhận **id của một COMPONENT** làm giá trị mặc định (không phải id của set);
   `preferredValues` dùng `key` của component.

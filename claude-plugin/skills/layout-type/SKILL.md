@@ -1,6 +1,7 @@
 ---
 name: layout-type
-description: Thang khoảng cách, bố cục và chữ trên canvas Figma khi thiết kế bằng các tool của plugin magic-design-with-figma (execute_figma_code, inspect_nodes, screenshot, audit_design). Dùng khi cần quyết hoặc sửa thang chữ và text style, spacing/radius variable, auto layout, layout grid, cỡ nút và ô nhập, vùng bấm, bo góc, đổ bóng, mật độ, khung web/iOS/Android hay chuyển động prototype; dựng cả một màn hình thì bắt đầu từ skill design-workflow.
+description: 'Quyết và sửa chữ, khoảng cách, bố cục và kích thước trong file Figma đang mở: thang chữ và text style, khoảng cách theo lưới 4, auto layout, layout grid, cỡ nút và ô nhập, vùng bấm, bo góc, đổ bóng, khung web/iOS/Android, chuyển động prototype. Dùng khi người dùng hỏi về cỡ chữ, khoảng cách, căn lề, lưới hay kích thước màn hình trên file Figma nối qua plugin Magic Design with Figma. Dựng cả một màn thì bắt đầu từ design-workflow.'
+argument-hint: "<việc cần làm với chữ, khoảng cách hay bố cục>"
 ---
 
 # Bố cục và chữ trên canvas Figma
@@ -8,7 +9,7 @@ description: Thang khoảng cách, bố cục và chữ trên canvas Figma khi t
 Skill này biến các thang đo — khoảng cách, chữ, cỡ điều khiển, vùng bấm, bo góc, độ nổi, chuyển
 động — thành **thuộc tính Figma cụ thể**, dựng bằng `execute_figma_code`, kiểm bằng `screenshot` và
 `audit_design`. Màu và contrast → skill `color-system`; component và trạng thái →
-`components-states`; brief, quy trình, bàn giao → `design-workflow`; audit đầy đủ → `design-audit`.
+`components-states`; brief, quy trình → `design-workflow`; spec bàn giao → `handoff-spec`; audit đầy đủ → `design-audit`.
 
 **Tri thức, không phải luật.** Khi các nguồn nói khác nhau, thứ tự ưu tiên là:
 
@@ -40,8 +41,9 @@ product. Chưa rõ register → hỏi một câu; có bảng hoặc form thì m�
 1. **Đọc trước khi vẽ.** `get_context` → một lần `execute_figma_code` liệt kê text styles, effect
    styles, grid styles, variables số và font đang dùng
    ([spacing-layout.md §10](reference/spacing-layout.md#10-đọc-thang-có-sẵn-trong-file)).
-   `inspect_nodes` cho cấu trúc, nhưng **không** trả lineHeight, letterSpacing, fontWeight, style id
-   hay variable đã gắn — đọc các thứ đó bằng code ([typography.md §10](reference/typography.md#10-đọc-thuộc-tính-chữ-mà-inspect_nodes-không-trả)).
+   `inspect_nodes` trả cấu trúc kèm thuộc tính chữ (fontWeight, lineHeight, letterSpacing, textCase,
+   textAutoResize), tên text style và tên variable đã gắn. Gom thang chữ của cả màn thì dùng code
+   ([typography.md §10](reference/typography.md#10-gom-thang-chữ-của-cả-màn)).
 2. **Chốt thang.** File đã có thang → dùng đúng thang đó, kể cả khi lệch mặc định ở đây. Chưa có →
    tạo spacing/radius variables và bộ text style **trước** khi dựng màn hình, rồi nói với người dùng
    đã thêm gì vào file.

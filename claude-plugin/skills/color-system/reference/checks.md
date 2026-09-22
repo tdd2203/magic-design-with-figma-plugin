@@ -131,8 +131,8 @@ chính. Màn hình mệt và loè loẹt thì hạ chroma primary (hệ số `K`
 
 ### Bước 6: đủ trạng thái
 
-`inspect_nodes` trên component set để lấy danh sách biến thể, rồi `execute_figma_code` đọc
-`boundVariables` của fill và stroke từng biến thể:
+`inspect_nodes` trên component set (depth 2): mỗi biến thể có `variantProperties`, và fill, stroke
+nào gắn biến thì kèm tên biến ở `variable`:
 - Hover trỏ `action/hover`, pressed trỏ `action/active`. Lệch ≥ 1 nấc; trên mobile pressed lệch ≥ 2
   nấc vì không có hover.
 - **Không** làm hover hay pressed bằng `opacity` của layer: nó làm cả chữ nhạt đi.
@@ -169,8 +169,8 @@ một gói sản phẩm mới. Hết chỗ thì gom bớt: có thật cần acce
    (`<status>/subtle-bg`) thay vì màu có alpha. `audit_design` design đo trên màu đã trộn;
    `audit_design` palette thì không nhìn thấy alpha đặt trên layer.
 3. **Ngưỡng chữ lớn tính bằng px thật:** 24px, hoặc 18,66px khi weight ≥ 700. "Semi Bold" (600) chưa đủ
-   đậm. `inspect_nodes` không trả weight; đọc `textNode.fontWeight` bằng `execute_figma_code`
-   (kết quả là `figma.mixed` nếu chữ trộn nhiều weight).
+   đậm. `inspect_nodes` trả `fontWeight`; chữ trộn nhiều weight thì nó là `"mixed"` và từng đoạn
+   nằm trong `segments`.
 4. **Viền ô nhập là phép đo riêng.** Quét chữ không bắt được nó. `ranh-gioi-o-nhap` chỉ đo những layer
    mà nó nhận ra là ô nhập. Đặt tên layer rõ ràng (`Input`, `Select`, `Textarea`) để công cụ và người đọc
    file đều nhận ra. Ô nào nghi bị bỏ sót thì đo tay: màu viền (hoặc nền ô) với nền bên ngoài, ngưỡng 3:1.

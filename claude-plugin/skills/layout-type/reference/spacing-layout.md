@@ -247,7 +247,8 @@ return {
 ```
 
 Variables và styles lấy từ thư viện team không hiện trong danh sách local. Thấy node đã gắn
-variable lạ → đọc `node.boundVariables` rồi `figma.variables.getVariableByIdAsync(id)`.
+variable lạ → `inspect_nodes` node đó: `variables` và `fills[].variable` cho tên biến. Tên nào không
+đọc được thì trường đó bị bỏ; lúc ấy đọc `node.boundVariables` rồi `figma.variables.getVariableByIdAsync(id)`.
 
 ## 11. Dựng và gắn spacing variables
 

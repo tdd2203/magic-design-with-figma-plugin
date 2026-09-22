@@ -1,6 +1,7 @@
 ---
 name: color-system
-description: Chọn và dựng bảng màu thành Figma Variables (ramp OKLCH, collection Primitives → Semantic có mode Light/Dark, gắn biến vào fill/stroke, kiểm contrast và dark mode) bằng các tool của magic-design-with-figma như execute_figma_code, audit_design và screenshot. Dùng khi người dùng muốn tạo hoặc sửa bảng màu, color token, màu thương hiệu, dark mode, chuyển màu viết cứng sang biến, hoặc hỏi "màu thế này ổn chưa" trên file Figma đang mở qua plugin Magic Design with Figma.
+description: 'Dựng hoặc sửa bảng màu trong file Figma đang mở: tạo màu thành Variables, có chế độ sáng và tối, gắn màu vào layer, kiểm tương phản giữa các cặp màu trong bảng màu (tương phản trên một màn cụ thể thì dùng a11y-audit). Dùng khi người dùng muốn làm bảng màu, màu thương hiệu, dark mode, đổi mã màu viết cứng sang biến, hoặc hỏi "màu thế này ổn chưa" trên file Figma nối qua plugin Magic Design with Figma.'
+argument-hint: "<màu thương hiệu hoặc việc cần làm với màu>"
 ---
 
 # Hệ màu trong Figma

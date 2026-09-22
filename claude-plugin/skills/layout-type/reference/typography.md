@@ -83,6 +83,9 @@ làm tròn về số chẵn gần nhất:
   chữ mồ côi ở dòng cuối.
 - Chữ rất lớn (từ 32px) có thể siết `letterSpacing` âm nhẹ, −1% đến −2%. Chữ thân để 0.
 
+`audit_design` đo các điều ở mục này và ở §1–3: `dong-qua-dai`, `khoang-dong-chat`, `can-le-kho-doc`,
+`viet-hoa`, `thang-chu-roi`. Ngưỡng, bẫy và đoạn code sửa nằm trong sổ luật của skill `design-audit`.
+
 ## 6. Chữ sáng trên nền tối
 
 Cùng một text style, đặt chữ sáng lên nền tối sẽ trông nhẹ nét hơn và các dòng như khít lại. Style
@@ -167,10 +170,12 @@ Gắn style cho text: `await text.setTextStyleIdAsync(styleId)`. File dùng vari
 gắn luôn vào style: `s.setBoundVariable('fontSize', sizeVariable)` (tương tự `lineHeight`,
 `letterSpacing`, `fontWeight`), để đổi thang ở một chỗ.
 
-## 10. Đọc thuộc tính chữ mà inspect_nodes không trả
+## 10. Gom thang chữ của cả màn
 
-`inspect_nodes` không trả lineHeight, letterSpacing, fontWeight, style id, variable đã gắn. Đọc
-bằng code, chỉ đọc, gom theo tổ hợp để kết quả gọn:
+`inspect_nodes` trả thuộc tính chữ của từng layer: fontWeight, lineHeight, letterSpacing, tên text
+style, variable đã gắn, và `segments` khi một layer trộn nhiều cỡ hay màu. Nhưng nó chỉ đi tới độ sâu
+đã cho và 50 con mỗi cấp. Muốn biết cả màn đang dùng bao nhiêu tổ hợp chữ thì đọc bằng code, chỉ đọc,
+gom theo tổ hợp để kết quả gọn. Panel Figma bản cũ chưa trả các trường chữ: khi đó cũng đọc bằng đoạn này.
 
 ```js
 const root = await figma.getNodeByIdAsync('FRAME_ID')

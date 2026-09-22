@@ -28,6 +28,11 @@ hiểu sai). Đọc sổ này khi cần giải thích một phát hiện, hoặc
 | Hue semantic so với primary | cách ≥ 60° (hue OKLCH) | tri thức phối màu | tri thức |
 | Cặp màu dưới mô phỏng mù màu | ΔE-OK ≥ 0,1 | **tự đặt**, không có chuẩn quốc tế; chỉ ra WARN | tự đặt |
 | Nền tối, chữ sáng | nền không #000 (khoảng #0F172A–#18181B) · chữ không #FFFFFF | tri thức phối màu | tri thức |
+| Độ dài dòng của đoạn chữ từ hai dòng | ≤ 80 ký tự mỗi dòng (nên 65–75) | WCAG 2.2 SC 1.4.8 (AAA); tri thức thiết kế | tri thức |
+| Line height của chữ cỡ thân (≤ 18px) từ hai dòng | ≥ 1,3 lần cỡ chữ (nên 1,4–1,5) | tri thức thiết kế (thang 12/16, 14/20, 16/24); SC 1.4.8 (AAA) khuyên 1,5 | tri thức |
+| Căn lề đoạn văn | căn giữa tối đa 2 dòng · không căn đều hai bên | tri thức thiết kế; SC 1.4.8 (AAA) cho căn đều | tri thức |
+| Viết hoa toàn bộ | tối đa 4 tiếng · nhãn in hoa ≤ 20px giãn chữ ≥ 2% (nên 5–10%) | tri thức thiết kế | tri thức |
+| Thang chữ trong một màn | ≤ 2 họ font · ≤ 3 độ đậm · ≤ 7 cỡ · không cỡ lẻ | tri thức thiết kế | tri thức |
 
 Công thức đều là công thức công bố: tỉ lệ tương phản và độ chói tương đối theo WCAG 2.x; trộn lớp bán
 trong suốt kiểu source-over; OKLab/OKLCH của Björn Ottosson; mô phỏng mù màu theo ma trận
@@ -98,6 +103,39 @@ lý do · ai quyết` vào DESIGN.md (hoặc vào báo cáo nếu dự án chưa
 - **Sửa:** dùng nấc neutral sáng nhất (50) ám nhẹ hue primary, gắn biến chữ chính ở mode Dark.
   Trắng thuần trên nền tối chênh quá gắt, đọc lâu mỏi mắt (đoạn đọc lâu chỉ cần 12–16:1); nấc 50 vẫn
   dư sức đạt 4,5:1.
+
+### `dong-qua-dai`
+- **Đo gì:** đoạn chữ từ hai dòng có trung bình quá 80 ký tự mỗi dòng (tổng ký tự chia số dòng).
+  **Nguồn:** WCAG 2.2 SC 1.4.8 (AAA); tri thức thiết kế khuyên 65–75. **Mức thường gặp:** WARN.
+- **Sửa:** hộp chữ rộng khoảng 40–45 lần cỡ chữ (16px ≈ 640–720px): đoạn văn `FILL` trong cột có
+  `maxWidth`, hoặc đặt `maxWidth` thẳng trên chữ khi nó là con của auto layout (đoạn 6.7).
+- **Bẫy:** bảng, mã, dữ liệu xếp cột không phải văn để đọc: miễn có lý do. Chữ một dòng không bị chấm.
+
+### `khoang-dong-chat`
+- **Đo gì:** chữ cỡ thân (≤ 18px) từ hai dòng có line height dưới 1,3 lần cỡ chữ. Line height `AUTO`
+  tính ≈ 1,2 vì phần lớn font giao diện cho ra khoảng đó. **Nguồn:** tri thức thiết kế (thang 12/16,
+  14/20, 16/24); SC 1.4.8 (AAA) khuyên 1,5. **Mức thường gặp:** WARN.
+- **Sửa:** line height theo px, bội số của 4: 12 → 16, 14 → 20, 16 → 24, 18 → 28 (đoạn 6.7). Tốt nhất là
+  áp text style có sẵn của file.
+- **Bẫy:** tiếng Việt chồng dấu ("Ẩ", "Ỗ") cần dòng rộng hơn chữ Latin; dòng chật thì dấu chạm dòng trên,
+  hoặc bị cắt khi frame `clipsContent` (`tran-chu`).
+
+### `can-le-kho-doc`
+- **Đo gì:** chữ căn giữa từ ba dòng, hoặc căn đều hai bên (`JUSTIFIED`) từ hai dòng.
+  **Nguồn:** tri thức thiết kế; SC 1.4.8 (AAA) cho căn đều. **Mức thường gặp:** WARN.
+- **Sửa:** đoạn văn `textAlignHorizontal = 'LEFT'`. Tiêu đề căn giữa thì giữ tối đa hai dòng: rút câu hoặc
+  nới bề rộng; `textWrapStyle = 'BALANCE'` cho các dòng dài gần bằng nhau.
+- **Bẫy:** hộp chữ cố định cao hơn nội dung (kéo cao để căn giữa theo chiều dọc) không bị đếm thành nhiều
+  dòng: tool đếm dòng theo nét chữ thật.
+
+### `viet-hoa`
+- **Đo gì:** chữ viết hoa toàn bộ (bằng `textCase = 'UPPER'` hoặc gõ hoa sẵn) quá 4 tiếng; hoặc nhãn in
+  hoa ≤ 20px giãn chữ dưới 2%. Một cụm gõ hoa đứng một mình (USD, PDF) được coi là viết tắt, bỏ qua.
+  **Nguồn:** tri thức thiết kế: chữ hoa mất hình dáng từ nên đọc chậm; khoảng chữ mặc định của font
+  canh cho chữ thường. **Mức thường gặp:** WARN.
+- **Sửa:** câu dài để chữ thường. Nhãn ngắn: nội dung gốc chữ thường, `textCase = 'UPPER'`,
+  `letterSpacing = { unit: 'PERCENT', value: 6 }` (5–10%). Load font trước khi đổi.
+- **Bẫy:** tiếng Việt đếm theo tiếng: "đăng nhập" là 2 tiếng. Logo, mã sản phẩm: miễn có lý do.
 
 ### `bang-mau-tuong-phan` (scope `palette`)
 - **Đo gì:** cặp biến chữ/nền và chữ-trên-action/action, **từng mode**, dưới 4,5:1.
@@ -189,6 +227,15 @@ lý do · ai quyết` vào DESIGN.md (hoặc vào báo cáo nếu dự án chưa
 - **Sửa:** liệt kê style cùng cỡ (6.3b) rồi áp. Không style nào khớp nghĩa là chữ lệch thang, hoặc thang
   thiếu một nấc. Hỏi người dùng nên thêm style hay đưa chữ về nấc có sẵn.
 
+### `thang-chu-roi`
+- **Đo gì:** trong mỗi layer gốc được đo (thường là một màn): quá 2 họ font, quá 3 độ đậm, quá 7 cỡ chữ,
+  hoặc cỡ chữ lẻ như 15,5px. Font icon (tên có "icon", "symbol"…) không tính. **Nguồn:** tri thức thiết kế:
+  một sans + một mono, 2–3 độ đậm, thang 6–7 nấc. **Mức thường gặp:** WARN.
+- **Sửa:** gom về text style của file (6.3b), mỗi vai trò đúng một style. Cỡ lẻ thường do kéo giãn layer
+  chữ bằng công cụ Scale: đặt lại cỡ đúng nấc rồi áp style.
+- **Bẫy:** trang brand được thêm một họ serif cho tiêu đề và độ đậm 700, ghi lý do vào DESIGN.md. Đo cả
+  trang thì mỗi màn là một gốc riêng; chọn nhiều màn cùng lúc cũng vậy.
+
 ### `gradient-chu`
 - **Đo gì:** layer chữ fill gradient. Contrast không đo ổn định, và thường chỉ là trang trí.
   **Mức thường gặp:** WARN.
@@ -218,7 +265,11 @@ lý do · ai quyết` vào DESIGN.md (hoặc vào báo cáo nếu dự án chưa
 Tất cả là thân hàm cho `execute_figma_code`. Thay `'…_ID'` bằng id thật. Đoạn **đọc** chạy thoải mái.
 Đoạn **sửa** chỉ chạy khi người dùng đồng ý; mỗi lần là một bước undo.
 
-### 6.1. Đọc thuộc tính chữ mà `inspect_nodes` không trả
+### 6.1. Đọc từng đoạn của một layer chữ
+
+`inspect_nodes` trả fontWeight, lineHeight, letterSpacing, textAutoResize, tên text style và biến
+gắn cho cả layer; chữ trộn nhiều kiểu thì có thêm `segments` (cỡ, font, weight, màu). Cần line
+height, letter spacing hay style riêng của **từng đoạn** thì đọc bằng code:
 
 ```js
 const node = await figma.getNodeByIdAsync('TEXT_ID')
@@ -362,3 +413,37 @@ return g && 'gradientStops' in g ? g.gradientStops.map((s) => s.color) : null
 ```
 
 Đưa từng màu vào `ratio` ở 6.2 (stop có alpha < 1 thì `mix` với nền bên dưới trước). Số thấp nhất là số của chữ.
+
+### 6.7. Nắn một đoạn văn: line height, căn lề, bề rộng
+
+Chạy với `APPLY = false` để xem trước, rồi hỏi người dùng. Chữ đã gắn text style thì sửa ở style (hoặc
+áp style khác) thay vì sửa từng layer.
+
+```js
+const APPLY = false
+const node = await figma.getNodeByIdAsync('TEXT_ID')
+if (!node || node.type !== 'TEXT') throw new Error('Không phải layer chữ')
+if (node.fontSize === figma.mixed) throw new Error('Chữ trộn nhiều cỡ: sửa từng đoạn hoặc áp text style')
+const size = node.fontSize
+const plan = {
+  lineHeight: { unit: 'PIXELS', value: Math.round((size * 1.45) / 4) * 4 }, // 12→16 · 14→20 · 16→24 · 18→28
+  textAlignHorizontal: 'LEFT',
+  maxWidth: Math.round(size * 45), // khoảng 75 ký tự mỗi dòng
+}
+if (!APPLY) return { id: node.id, now: { lineHeight: node.lineHeight, align: node.textAlignHorizontal, width: node.width }, plan }
+await Promise.all(node.getRangeAllFontNames(0, node.characters.length).map((f) => figma.loadFontAsync(f)))
+node.lineHeight = plan.lineHeight
+node.textAlignHorizontal = plan.textAlignHorizontal
+if (node.width > plan.maxWidth) {
+  const inAutoLayout = node.parent && 'layoutMode' in node.parent && node.parent.layoutMode !== 'NONE'
+  if (inAutoLayout && node.layoutSizingHorizontal === 'FILL') node.maxWidth = plan.maxWidth
+  else {
+    node.textAutoResize = 'HEIGHT'
+    node.resize(plan.maxWidth, node.height)
+  }
+}
+return { id: node.id, lineHeight: node.lineHeight, width: node.width }
+```
+
+Nhãn in hoa ngắn (`viet-hoa`): sau khi load font như trên, `node.textCase = 'UPPER'` và
+`node.letterSpacing = { unit: 'PERCENT', value: 6 }`. Nội dung đã gõ hoa sẵn thì chỉ cần thêm khoảng chữ.
