@@ -5,7 +5,7 @@ Thiết kế trong Figma bằng Claude Code: bạn chat với Claude trong Claud
 Repo này chỉ chứa bản đã build để cài đặt. Gồm hai plugin nói chuyện với nhau qua `localhost`:
 
 - **Plugin Claude Code** (`claude-plugin/`): một MCP server nhỏ mà Claude Code tự khởi động, cung cấp tool Figma và các skill thiết kế cho Claude.
-- **Plugin Figma** (`manifest.json`, `dist/`): panel trong Figma: nút "Kết nối", chọn thư mục dự án cho Claude, và nhật ký các bước Claude làm.
+- **Plugin Figma** (`manifest.json`, `dist/`): panel trong Figma: nút "Kết nối", chọn thư mục dự án cho Claude, và nhật ký các bước Claude làm trong đoạn chat đang chạy.
 
 ## Cần có
 
@@ -39,7 +39,7 @@ Repo này chỉ chứa bản đã build để cài đặt. Gồm hai plugin nói
 
 3. Mở một phiên Claude Code mới trong thư mục dự án (trong app Claude, hoặc chạy `claude` trong Terminal), mở plugin **Magic Design with Figma** trong Figma rồi bấm **Kết nối**.
 4. **Ghép cặp (một lần mỗi máy):** panel hiện một mã 6 số. Gõ `/magic-design-with-figma:pair 482913` trong Claude Code (nút "Copy lệnh" chép yêu cầu ghép cặp dùng được cho cả hai ứng dụng), hoặc chỉ cần nói mã với Claude.
-5. **Chọn thư mục:** panel liệt kê các thư mục đang mở Claude Code, thư mục có khả năng đúng nhất nằm đầu kèm nhãn gợi ý. Bấm một thư mục là xong.
+5. **Chọn thư mục:** panel liệt kê các thư mục đang mở Claude Code, thư mục có khả năng đúng nhất nằm đầu kèm nhãn gợi ý. Bấm một thư mục là xong; lần sau mở lại file này, thư mục đó có nhãn **Dự án đang làm** (nhãn **Giống tên file** chỉ là đoán theo tên); mở nhiều phiên Claude Code trong cùng thư mục thì phiên nào ở đó cũng sửa được.
 6. Nhờ Claude, ví dụ: "Thiết kế màn hình đăng nhập mobile trong Figma".
 
 Claude Code sẽ hỏi quyền ở lần đầu mỗi tool được gọi. Chọn "always allow" nếu không muốn bị hỏi lại.
@@ -88,7 +88,7 @@ Mỗi bản phát hành có tag theo số phiên bản (ví dụ `v0.0.4`); số
 ## Claude làm được gì
 
 - `get_context`, `inspect_nodes`: đọc file, trang, selection và cấu trúc layer.
-- `execute_figma_code`: dựng và sửa layer bằng Figma Plugin API. Mỗi lần chạy là một bước undo riêng.
+- `execute_figma_code`: dựng và sửa layer bằng Figma Plugin API. Mỗi lần chạy có sửa file là một bước undo riêng.
 - `screenshot`: chụp node để Claude tự kiểm tra.
 - `audit_design`: đo contrast, vùng bấm, khoảng cách, màu và chữ chưa gắn biến… mà không sửa gì.
 
